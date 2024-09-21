@@ -8,7 +8,13 @@ export async function GET(units: Units, radius: number, nGores: number, precisio
     requestHeaders.append('Access-Control-Expose-Headers', 'Content-Disposition');
     requestHeaders.append('Access-Control-Allow-Origin', '*');
 
-    const url = `http://127.0.0.1:5000/generate?radius=${encodeURIComponent(radiusInInches)}&n_gores=${encodeURIComponent(nGores)}&precision=${encodeURIComponent(precision)}`
+    const url = `${
+			process.env.API_ENDPOINT
+		}/generate?radius=${encodeURIComponent(
+			radiusInInches
+		)}&n_gores=${encodeURIComponent(nGores)}&precision=${encodeURIComponent(
+			precision
+		)}`;
     const response = await fetch(url, {headers: requestHeaders, method: "GET", mode: "cors"})
 
     if (response.ok) {
