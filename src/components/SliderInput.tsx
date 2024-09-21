@@ -1,5 +1,4 @@
 import { BaseInputProps } from '@/types/BaseInputProps';
-import { useState } from 'react';
 
 type SliderInputProps = BaseInputProps & {
 	min: number;
@@ -35,7 +34,7 @@ export default function SliderInput({
 						type='range'
 						className='w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700'
 						value={defaultValue}
-                        onChange={(e) => setValue(e.target.value)}
+                        onChange={(e) => setValue(Number(e.target.value))}
 						min={min}
 						max={max}
 						required
