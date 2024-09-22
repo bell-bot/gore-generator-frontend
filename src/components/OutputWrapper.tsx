@@ -13,7 +13,7 @@ export default function OutputWrapper({
 }: GeneratorOutputProps) {
 	return (
 		<Wrapper className='flex flex-auto'>
-			{generatorOutputUrl ? (
+			{generatorOutputUrl && previewUrl ? (
 				<Output
 					pdfUrl={generatorOutputUrl}
 					previewUrl={previewUrl}

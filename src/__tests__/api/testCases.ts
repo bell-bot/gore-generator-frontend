@@ -51,6 +51,7 @@ export const radiusToInchesStringTestCases: RadiusToInchesStringTestCase[] = [
 	{ inputs: { radius: 67.6345, unit: Units.INCHES }, expectedValue: '67.6345' },
 	{
 		inputs: {
+			// eslint-disable-next-line @typescript-eslint/no-loss-of-precision
 			radius: 673465753732483268746328.324582348732687468732648726387,
 			unit: Units.INCHES
 		},

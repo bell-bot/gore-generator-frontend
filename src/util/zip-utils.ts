@@ -24,6 +24,10 @@ export async function unzip(buffer: ArrayBuffer) {
 				throw err;
 			});
 
-		return { pdfUrl: pdfUrl, pngUrl: pngUrl } as ResponseData;
+        if (pdfUrl && pngUrl) {
+					return { pdfUrl: pdfUrl, pngUrl: pngUrl } as ResponseData;
+				}
+
+				throw new Error('Could not extract files from zip archive');
 	});
 }
