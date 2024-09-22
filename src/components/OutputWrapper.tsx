@@ -3,14 +3,24 @@ import Wrapper from "@/components/Wrapper";
 import {Output} from "@/components/Output";
 
 export type GeneratorOutputProps = {
-    generatorOutputUrl?: string;
-}
+	generatorOutputUrl?: string;
+	previewUrl?: string;
+};
 
-export default function OutputWrapper({generatorOutputUrl}: GeneratorOutputProps) {
-    return (
-        <Wrapper className="flex flex-auto">
-            { generatorOutputUrl ? <Output imageUrl={generatorOutputUrl} /> : <OutputPlaceholder/>}
-
-        </Wrapper>
-    )
+export default function OutputWrapper({
+	generatorOutputUrl,
+	previewUrl
+}: GeneratorOutputProps) {
+	return (
+		<Wrapper className='flex flex-auto'>
+			{generatorOutputUrl ? (
+				<Output
+					pdfUrl={generatorOutputUrl}
+					previewUrl={previewUrl}
+				/>
+			) : (
+				<OutputPlaceholder />
+			)}
+		</Wrapper>
+	);
 }

@@ -11,10 +11,10 @@ import {validateNGores} from "@/form-validators/validateNGores";
 
 type FormProps = {
 	setGoreUrl: (url: string) => void;
-}
+	setPreviewUrl: (url: string) => void;
+};
 
-export function Form({setGoreUrl}: FormProps) {
-
+export function Form({ setGoreUrl, setPreviewUrl }: FormProps) {
 	const [radius, setRadius] = useState<string>();
 	const [nGores, setNGores] = useState<string>();
 	const [units, setUnits] = useState<Units>(Units.INCHES);
@@ -24,16 +24,16 @@ export function Form({setGoreUrl}: FormProps) {
 
 	function handleOnSubmit(e: FormEvent<HTMLFormElement>) {
 		e.preventDefault();
-		const isValidRadius = radius && validateRadius(radius)
-		const isValidNGores = nGores && validateNGores(nGores)
+		const isValidRadius = radius && validateRadius(radius);
+		const isValidNGores = nGores && validateNGores(nGores);
 
 		if (isValidRadius && isValidNGores) {
-			const response = GET(units, Number(radius), Number(nGores), precision);
-			response.then((response) => response.blob()).then((blob) => {
-				const objectUrl = window.URL.createObjectURL(blob);
-				console.log(blob.type);
-				setGoreUrl(objectUrl);
-			})
+			const response = GET(units, Number(radius), nGores, precision);
+			response.then(function (response) {
+				console.log(response);
+				setGoreUrl(response.pdfUrl);
+				setPreviewUrl(response.pngUrl);
+			});
 		}
 
 		if (!isValidRadius) {
@@ -41,7 +41,7 @@ export function Form({setGoreUrl}: FormProps) {
 		}
 
 		if (!isValidNGores) {
-			setIsNGoresError(true)
+			setIsNGoresError(true);
 		}
 	}
 
@@ -58,14 +58,17 @@ export function Form({setGoreUrl}: FormProps) {
 	}, [isNGoresError, nGores]);
 
 	return (
-		<Wrapper className="mb-auto justify-items-start">
-			<form onSubmit={(e) => handleOnSubmit(e)} noValidate={true}>
-				<div className="space-y-12 text-left">
-					<div className="pb-12">
-						<p className="mt-1 text-sm leading-6 text-gray-600">
+		<Wrapper className='mb-auto justify-items-start'>
+			<form
+				onSubmit={(e) => handleOnSubmit(e)}
+				noValidate={true}
+			>
+				<div className='space-y-12 text-left'>
+					<div className='pb-12'>
+						<p className='mt-1 text-sm leading-6 text-gray-600'>
 							Enter the information of the desired hemisphere.
 						</p>
-						<div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8">
+						<div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8'>
 							<SelectorInput
 								inputId={'unit'}
 								inputLabel={'Unit'}
@@ -99,8 +102,11 @@ export function Form({setGoreUrl}: FormProps) {
 						</div>
 					</div>
 				</div>
-				<div className="flex flex-row justify-end">
-					<button className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow" type="submit">
+				<div className='flex flex-row justify-end'>
+					<button
+						className='bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow'
+						type='submit'
+					>
 						Submit
 					</button>
 				</div>

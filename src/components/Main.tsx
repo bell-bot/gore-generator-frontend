@@ -7,6 +7,7 @@ import {useState} from "react";
 export default function Main() {
 
     const [goreUrl, setGoreUrl] = useState<string>();
+    const [previewUrl, setPreviewUrl] = useState<string>();
     return (
         <>
             <div className="w-screen h-screen" id="main">
@@ -20,8 +21,8 @@ export default function Main() {
                 <main>
                     <div className="w-full h-full px-4 py-6 sm:px-6 lg:px-8">
                         <div className="flex flex-row gap-5">
-                            <Form setGoreUrl={setGoreUrl}/>
-                            <OutputWrapper generatorOutputUrl={goreUrl}/>
+                            <Form setGoreUrl={setGoreUrl} setPreviewUrl={setPreviewUrl}/>
+                            <OutputWrapper generatorOutputUrl={goreUrl} previewUrl={previewUrl}/>
                         </div>
                     </div>
                 </main>

@@ -1,34 +1,62 @@
-import {Units} from "@/types/Units";
-import {cmToInches, mmToInches} from "@/util/toInches";
+import { Units } from '@/types/Units';
+import { cmToInches, mmToInches } from '@/util/toInches';
+import { unzip } from '@/util/zip-utils';
 
-export async function GET(units: Units, radius: number, nGores: number, precision: number) {
-    const radiusInInches = radiusToInches(units, radius);
-    const requestHeaders = new Headers();
-    requestHeaders.append('Content-Type', 'image/png')
-    requestHeaders.append('Access-Control-Expose-Headers', 'Content-Disposition');
-    requestHeaders.append('Access-Control-Allow-Origin', '*');
+export async function GET(
+	units: Units,
+	radius: number,
+	nGores: string,
+	precision: number
+) {
+	const radiusInInches = radiusToInchesString(units, radius);
 
-    const url = `https://gore-generator.vercel.app/generate?radius=${encodeURIComponent(
-			radiusInInches
-		)}&n_gores=${encodeURIComponent(nGores)}&precision=${encodeURIComponent(
-			precision
-		)}`;
-    const response = await fetch(url, {headers: requestHeaders, method: "GET", mode: "cors"})
+	const response = await sendRequest(radiusInInches, nGores, precision);
 
-    if (response.ok) {
-        return response;
-    } else {
-        throw new Error(response.statusText);
-    }
+	if (response.ok) {
+		return response.arrayBuffer().then(function (buffer) {
+            return unzip(buffer);
+        })
+	} else {
+		throw new Error(response.statusText);
+	}
 }
 
-function radiusToInches(units: Units, radius: number) {
-    switch (units) {
-        case Units.CM:
-            return cmToInches(radius);
-        case Units.MM:
-            return mmToInches(radius);
-        case Units.INCHES:
-            return radius;
-    }
+function sendRequest(radius: string, nGores: string, precision: number) {
+	const headers = getRequestHeaders();
+
+	const url =
+		process.env.NEXT_PUBLIC_API_ENDPOINT + getUrl(radius, nGores, precision);
+
+	return fetch(url, {
+		headers: headers,
+		method: 'GET',
+		mode: 'cors'
+	});
+}
+
+export function getUrl(radius: string, nGores: string, precision: number) {
+	return `/generate?radius=${encodeURIComponent(
+		radius
+	)}&n_gores=${encodeURIComponent(nGores)}&precision=${encodeURIComponent(
+		precision
+	)}`;
+}
+
+function getRequestHeaders() {
+	const requestHeaders = new Headers();
+	requestHeaders.append('Content-Type', 'zip');
+	requestHeaders.append('Access-Control-Expose-Headers', 'Content-Disposition');
+	requestHeaders.append('Access-Control-Allow-Origin', '*');
+	return requestHeaders;
+}
+
+export function radiusToInchesString(units: Units, radius: number) {
+	switch (units) {
+		case Units.CM:
+			return cmToInches(radius).toString();
+		case Units.MM:
+			return mmToInches(radius).toString();
+		case Units.INCHES:
+			return radius.toString();
+	}
 }
