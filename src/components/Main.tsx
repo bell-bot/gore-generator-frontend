@@ -8,25 +8,37 @@ export default function Main() {
 
     const [goreUrl, setGoreUrl] = useState<string>();
     const [previewUrl, setPreviewUrl] = useState<string>();
-    return (
-        <>
-            <div className="w-screen h-screen" id="main">
-                <header className="bg-gray-700 shadow">
-                    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-                        <h1 className="text-4xl font-bold tracking-tight text-indigo-50 text-center">
-                            Gore Generator
-                        </h1>
-                    </div>
-                </header>
-                <main>
-                    <div className="w-full h-full px-4 py-6 sm:px-6 lg:px-8">
-                        <div className="flex flex-row gap-5">
-                            <Form setGoreUrl={setGoreUrl} setPreviewUrl={setPreviewUrl}/>
-                            <OutputWrapper generatorOutputUrl={goreUrl} previewUrl={previewUrl}/>
-                        </div>
-                    </div>
-                </main>
-            </div>
-        </>
-    )
+    const [isLoading, setIsLoading] = useState(false);
+		return (
+			<>
+				<div
+					className='w-screen h-screen'
+					id='main'
+				>
+					<header className='bg-gray-700 shadow'>
+						<div className='mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8'>
+							<h1 className='text-4xl font-bold tracking-tight text-indigo-50 text-center'>
+								Gore Generator
+							</h1>
+						</div>
+					</header>
+					<main>
+						<div className='w-full h-full px-4 py-6 sm:px-6 lg:px-8'>
+							<div className='flex flex-row gap-5'>
+								<Form
+									setGoreUrl={setGoreUrl}
+									setPreviewUrl={setPreviewUrl}
+									setIsLoading={setIsLoading}
+								/>
+								<OutputWrapper
+									generatorOutputUrl={goreUrl}
+									previewUrl={previewUrl}
+									isLoading={isLoading}
+								/>
+							</div>
+						</div>
+					</main>
+				</div>
+			</>
+		);
 }

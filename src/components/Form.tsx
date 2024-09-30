@@ -12,9 +12,10 @@ import {validateNGores} from "@/form-validators/validateNGores";
 type FormProps = {
 	setGoreUrl: (url: string) => void;
 	setPreviewUrl: (url: string) => void;
+	setIsLoading: (isLoading: boolean) => void;
 };
 
-export function Form({ setGoreUrl, setPreviewUrl }: FormProps) {
+export function Form({ setGoreUrl, setPreviewUrl, setIsLoading }: FormProps) {
 	const [radius, setRadius] = useState<string>();
 	const [nGores, setNGores] = useState<string>();
 	const [units, setUnits] = useState<Units>(Units.INCHES);
@@ -22,17 +23,18 @@ export function Form({ setGoreUrl, setPreviewUrl }: FormProps) {
 	const [isRadiusError, setIsRadiusError] = useState(false);
 	const [isNGoresError, setIsNGoresError] = useState(false);
 
-	function handleOnSubmit(e: FormEvent<HTMLFormElement>) {
+	async function handleOnSubmit(e: FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 		const isValidRadius = radius && validateRadius(radius);
 		const isValidNGores = nGores && validateNGores(nGores);
 
 		if (isValidRadius && isValidNGores) {
+			setIsLoading(true);
 			const response = GET(units, Number(radius), nGores, precision);
 			response.then(function (response) {
-				console.log(response);
 				setGoreUrl(response.pdfUrl);
 				setPreviewUrl(response.pngUrl);
+				setIsLoading(false);
 			});
 		}
 
