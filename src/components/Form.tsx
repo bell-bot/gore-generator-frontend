@@ -67,7 +67,7 @@ export function Form({ setGoreUrl, setPreviewUrl, setIsLoading }: FormProps) {
 			>
 				<div className='space-y-12 text-left'>
 					<div className='pb-12'>
-						<p className='mt-1 text-sm leading-6 text-gray-600'>
+						<p className='mt-1 text-sm leading-6 text-gray-600 dark:text-white'>
 							Enter the information of the desired hemisphere.
 						</p>
 						<div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8'>

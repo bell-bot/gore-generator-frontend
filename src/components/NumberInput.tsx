@@ -20,7 +20,7 @@ export default function NumberInput({
 		<div>
 			<label
 				htmlFor={inputId}
-				className='block text-sm font-medium leading-6 text-gray-900'
+				className='block text-sm font-medium leading-6 text-gray-900 dark:text-white'
 			>
 				{inputLabel}
 			</label>
@@ -32,7 +32,7 @@ export default function NumberInput({
 							id={inputId}
 							name={inputId}
 							type='text'
-							className='block rounded-md flex-1 border-0 bg-transparent py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6'
+							className='block rounded-md flex-1 border-0 bg-transparent py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 dark:text-white'
 							required
 							min={min}
 							onChange={(e) => setValue(e.target.value)}

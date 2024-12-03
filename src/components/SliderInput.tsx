@@ -22,7 +22,7 @@ export default function SliderInput({
 		<div className=''>
 			<label
 				htmlFor={inputId}
-				className='block text-sm font-medium leading-6 text-gray-900'
+				className='block text-sm font-medium leading-6 text-gray-900 dark:text-white'
 			>
 				{inputLabel}
 			</label>
@@ -32,7 +32,7 @@ export default function SliderInput({
 						id={inputId}
 						name={inputId}
 						type='range'
-						className='w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700'
+						className='w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 dark:text-white'
 						value={defaultValue}
                         onChange={(e) => setValue(Number(e.target.value))}
 						min={min}
@@ -40,10 +40,10 @@ export default function SliderInput({
 						required
 						step={step}
 					/>
-					<span className='text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-6'>
+					<span className='text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-6 dark:text-white'>
 						low
 					</span>
-					<span className='text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6'>
+					<span className='text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6 dark:text-white'>
 						high
 					</span>
 				</div>
