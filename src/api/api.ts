@@ -11,7 +11,7 @@ export async function GET(
 	const radiusInInches = radiusToInchesString(units, radius);
 
 	const response = await sendRequest(radiusInInches, nGores, precision);
-
+	console.log(response)
 	if (response.ok) {
 		return response.arrayBuffer().then(function (buffer) {
             return unzip(buffer);
