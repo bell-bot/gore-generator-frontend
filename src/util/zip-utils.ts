@@ -4,8 +4,17 @@ import { ResponseData } from '@/types/ResponseData';
 export async function unzip(buffer: ArrayBuffer) {
 	return JSZip.loadAsync(buffer).then(async function (zip) {
 		console.log(zip.files);
+
+		const pdfFileName = Object.keys(zip.files).find(name => name.endsWith('.pdf'));
+		
+		const pngFileName = Object.keys(zip.files).find(name => name.endsWith('.png'));
+		
+		if (!pdfFileName || !pngFileName) {
+			throw new Error('Could not find PDF or PNG file in zip archive');
+		}
+
 		const pdfUrl = await zip
-			.file('tmp/tmp.pdf')
+			.file(pdfFileName)
 			?.async('blob')
 			.then(function (blob) {
 				return window.URL.createObjectURL(blob);
@@ -15,7 +24,7 @@ export async function unzip(buffer: ArrayBuffer) {
 			});
 
 		const pngUrl = await zip
-			.file('tmp/tmp.png')
+			.file(pngFileName)
 			?.async('blob')
 			.then(function (blob) {
 				return window.URL.createObjectURL(blob);
