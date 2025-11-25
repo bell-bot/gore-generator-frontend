@@ -1,13 +1,13 @@
-import {Units} from '@/types/Units';
+import { GET } from "@/api/api";
+import Wrapper from "@/components/Wrapper";
+import { validateNGores } from "@/form-validators/validateNGores";
+import { validateRadius } from "@/form-validators/validateRadius";
+import { Units } from '@/types/Units';
+import { N_GORES_ERROR_RULE, RADIUS_ERROR_RULE } from "@/util/constants";
+import { FormEvent, useEffect, useState } from "react";
 import NumberInput from './NumberInput';
 import SelectorInput from './SelectorInput';
 import SliderInput from './SliderInput';
-import Wrapper from "@/components/Wrapper";
-import {GET} from "@/api/api";
-import {N_GORES_ERROR_RULE, RADIUS_ERROR_RULE} from "@/util/constants";
-import {FormEvent, useEffect, useState} from "react";
-import {validateRadius} from "@/form-validators/validateRadius";
-import {validateNGores} from "@/form-validators/validateNGores";
 
 type FormProps = {
 	setGoreUrl: (url: string) => void;
@@ -97,7 +97,7 @@ export function Form({ setGoreUrl, setPreviewUrl, setIsLoading }: FormProps) {
 								inputLabel={'Precision'}
 								defaultValue={precision}
 								step={'0.1'}
-								min={0}
+								min={1}
 								max={100}
 								setValue={setPrecision}
 							/>
