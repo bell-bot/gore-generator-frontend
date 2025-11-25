@@ -4,6 +4,7 @@ import ErrorBanner from "@/components/ErrorBanner";
 type NumberInputProps = BaseInputProps & {
 	min?: number;
 	errorRule: string;
+	value: string | undefined;
 	setValue: (value: string) => void;
 };
 
@@ -13,6 +14,7 @@ export default function NumberInput({
 	min,
 	isError,
 	errorRule,
+	value,
 	setValue
 }: NumberInputProps) {
 
@@ -36,6 +38,7 @@ export default function NumberInput({
 							required
 							min={min}
 							onChange={(e) => setValue(e.target.value)}
+							value={value}
 						/>
 					</div>
 					<div className="flex flex-wrap">

@@ -83,6 +83,7 @@ export function Form({ setGoreUrl, setPreviewUrl, setIsLoading }: FormProps) {
 								inputLabel={'Radius of the hemisphere.'}
 								errorRule={RADIUS_ERROR_RULE}
 								isError={isRadiusError}
+								value={radius}
 								setValue={setRadius}
 							/>
 							<NumberInput
@@ -90,6 +91,7 @@ export function Form({ setGoreUrl, setPreviewUrl, setIsLoading }: FormProps) {
 								inputLabel={'Desired number of gores.'}
 								errorRule={N_GORES_ERROR_RULE}
 								isError={isNGoresError}
+								value={nGores}
 								setValue={setNGores}
 							/>
 							<SliderInput
