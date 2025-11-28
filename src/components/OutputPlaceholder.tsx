@@ -1,5 +1,5 @@
-import placeholder from '../resources/sleeping_ham.gif'
 import Image from "next/image";
+import placeholder from '../resources/sleeping_ham_v4.gif';
 
 export default function OutputPlaceholder() {
     return (
